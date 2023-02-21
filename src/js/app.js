@@ -28,18 +28,22 @@ function render(variables = {}) {
   // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
-  let role1 = variables.role ? variables.role : "Floor Planner";
-  let lastname1 = variables.lastname ? variables.lastname : "";
-  let name1 = variables.name ? variables.name : "Maria";
-  let nameLastname = name1 + " " + lastname1;
+  if (variables.name == null) variables.name = "Maria";
+  if (variables.lastname == null) variables.lastname = "Perez";
+  if (variables.role == null) variables.role = "Floor Planner";
+  if (variables.socialMediaPosition == "position-left") {
+    variables.socialMediaPosition = "position-rigth";
+  } else {
+    variables.socialMediaPosition = variables.socialMediaPosition;
+  }
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
           <img src="${variables.avatarURL}" class="photo" />
-          <h1>${nameLastname}</h1>
-          <h2>${role1}</h2>
+          <h1>${variables.name} ${variables.lastname}</h1>
+          <h2>${variables.role}</h2>
           <h3>${variables.country} - ${variables.city}</h3>
-          <ul class="position-right">
+          <ul class=${variables.socialMediaPosition}>
             <li><a href="https://twitter.com/${variables.twitter}"><i class="fab fa-twitter"></i></a></li>
             <li><a href="https://github.com/${variables.github}"><i class="fab fa-github"></i></a></li>
             <li><a href="https://linkedin.com/${variables.linkedin}"><i class="fab fa-linkedin"></i></a></li>
